@@ -40,9 +40,13 @@ public class BasicGameApp implements Runnable {
 	public BufferStrategy bufferStrategy;
 	public Image astroPic;
     public Image BackgroundPic;
+    public Image AlakazamPic;
+    public Image MagikarpPic;
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
 	private Astronaut astro;
+    private Astronaut Alakazam;
+    private Astronaut Magikarp;
 
 
    // Main method definition
@@ -64,9 +68,13 @@ public class BasicGameApp implements Runnable {
       //variable and objects
       //create (construct) the objects needed for the game and load up 
 		astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png");//load the picture
-        BackgroundPic = Toolkit.getDefaultToolkit().getImage("Kongey Donk.jpg");
+        BackgroundPic = Toolkit.getDefaultToolkit().getImage("Background.png");
+        AlakazamPic = Toolkit.getDefaultToolkit().getImage("Alakazam.png");
+        MagikarpPic = Toolkit.getDefaultToolkit().getImage("Magikarp.png");
 		astro = new Astronaut(10,100);
 
+        Alakazam = new Astronaut(3,9);
+        Magikarp = new Astronaut(300, 500);
 
 	}// BasicGameApp()
 
@@ -94,6 +102,8 @@ public class BasicGameApp implements Runnable {
 	{
       //calls the move( ) code in the objects
 		astro.move();
+        Alakazam.move();
+        Magikarp.move();
 
 	}
 	
@@ -145,6 +155,9 @@ public class BasicGameApp implements Runnable {
 
       //draw the image of the astronaut
 		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
+        g.drawImage(BackgroundPic, 0, 0, WIDTH, HEIGHT, null);
+        g.drawImage(AlakazamPic, Alakazam.xpos, Alakazam.ypos, Alakazam.width, Alakazam.height, null);
+        g.drawImage(MagikarpPic, Magikarp.xpos, Magikarp.ypos, Magikarp.width, Magikarp.height, null);
 
 		g.dispose();
 
