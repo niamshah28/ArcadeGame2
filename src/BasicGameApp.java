@@ -13,6 +13,10 @@
 
 //Graphics Libraries
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.*;
 import javax.swing.JFrame;
@@ -22,7 +26,7 @@ import javax.swing.JPanel;
 //*******************************************************************************
 // Class Definition Section
 
-public class BasicGameApp implements Runnable {
+public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 
    //Variable Definition Section
    //Declare the variables used in the program 
@@ -132,7 +136,11 @@ public class BasicGameApp implements Runnable {
       canvas.setIgnoreRepaint(true);
    
       panel.add(canvas);  // adds the canvas to the panel.
-   
+
+       canvas.addKeyListener(this);
+       canvas.addMouseListener(this);
+       canvas.setBounds(0, 0, WIDTH, HEIGHT);
+       canvas.setIgnoreRepaint(true);
       // frame operations
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  //makes the frame close and exit nicely
       frame.pack();  //adjusts the frame and its contents so the sizes are at their default or larger
@@ -156,11 +164,90 @@ public class BasicGameApp implements Runnable {
       //draw the image of the astronaut
 		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
         g.drawImage(BackgroundPic, 0, 0, WIDTH, HEIGHT, null);
+        //g.drawImage(AlakazamPic, Alakazam.xpos, Alakazam.ypos, Alakazam.width, Alakazam.height, null);
         g.drawImage(AlakazamPic, Alakazam.xpos, Alakazam.ypos, Alakazam.width, Alakazam.height, null);
+
         g.drawImage(MagikarpPic, Magikarp.xpos, Magikarp.ypos, Magikarp.width, Magikarp.height, null);
 
 		g.dispose();
 
 		bufferStrategy.show();
 	}
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println("Key typed" + e.getKeyCode());
+        //up arrow 38
+        if (e.getKeyCode() == 38) {
+            System.out.println("pressed 'up' arrow");
+            Alakazam.dy = -Math.abs(Alakazam.dy);
+            Alakazam.dy = -5;
+        }
+        if (e.getKeyCode() == 39) {
+            System.out.println("pressed 'right' arrow");
+            //Alakazam.dx = Math.abs(Alakazam.dx);
+            Alakazam.dx = 5;
+
+        }
+        if (e.getKeyCode() == 37) {
+            System.out.println("pressed 'left' arrow");
+            Alakazam.dx = -5;
+        }
+        if (e.getKeyCode() == 40) {
+            System.out.println("pressed 'down' arrow");
+            Alakazam.dy = Math.abs(Alakazam.dy);
+            Alakazam.dy = 5;
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == 38) {
+            System.out.println("not pressed up arrow");
+            Alakazam.dy = 0;
+        }
+        if (e.getKeyCode() == 40) {
+            System.out.println("not pressed down arrow");
+            Alakazam.dy = 0;
+        }
+        if (e.getKeyCode() == 39) {
+            System.out.println("not pressed up arrow");
+            Alakazam.dx = 0;
+        }
+        if (e.getKeyCode() == 37) {
+            System.out.println("not pressed down arrow");
+            Alakazam.dx = 0;
+        }
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }
