@@ -48,9 +48,9 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     public Image MagikarpPic;
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
-	private Astronaut astro;
-    private Astronaut Alakazam;
-    private Astronaut Magikarp;
+
+    private Alakazam Alakazam;
+    private Magikarp Magikarp;
 
 
    // Main method definition
@@ -75,10 +75,10 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         BackgroundPic = Toolkit.getDefaultToolkit().getImage("Background.png");
         AlakazamPic = Toolkit.getDefaultToolkit().getImage("Alakazam.png");
         MagikarpPic = Toolkit.getDefaultToolkit().getImage("Magikarp.png");
-		astro = new Astronaut(10,100);
 
-        Alakazam = new Astronaut(3,9);
-        Magikarp = new Astronaut(300, 500);
+
+        Alakazam = new Alakazam(3,9);
+        Magikarp = new Magikarp(300, 500);
 
 	}// BasicGameApp()
 
@@ -105,11 +105,21 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 	public void moveThings()
 	{
       //calls the move( ) code in the objects
-		astro.move();
         Alakazam.move();
         Magikarp.move();
+       // crashing();
 
 	}
+    public void crashing(){
+        if(Alakazam.hitbox.intersects(Magikarp.hitbox)){
+            Alakazam.dx = -Alakazam.dx;
+            Magikarp.dx = -Magikarp.dx;
+            Alakazam.dy = -Alakazam.dy;
+            Magikarp.dy = -Magikarp.dy;
+    }
+    }
+
+
 	
    //Pauses or sleeps the computer for the amount specified in milliseconds
    public void pause(int time ){
@@ -162,7 +172,6 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 		g.clearRect(0, 0, WIDTH, HEIGHT);
 
       //draw the image of the astronaut
-		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
         g.drawImage(BackgroundPic, 0, 0, WIDTH, HEIGHT, null);
         //g.drawImage(AlakazamPic, Alakazam.xpos, Alakazam.ypos, Alakazam.width, Alakazam.height, null);
         g.drawImage(AlakazamPic, Alakazam.xpos, Alakazam.ypos, Alakazam.width, Alakazam.height, null);
@@ -203,6 +212,26 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             Alakazam.dy = Math.abs(Alakazam.dy);
             Alakazam.dy = 5;
         }
+        if (e.getKeyCode() == 87) {
+            System.out.println("pressed 'W'");
+            Magikarp.dy = -Math.abs(Magikarp.dy);
+            Magikarp.dy = -5;
+        }
+        if (e.getKeyCode() == 65) {
+            System.out.println("pressed 'A' ");
+            //Alakazam.dx = Math.abs(Alakazam.dx);
+            Magikarp.dx = -5;
+
+        }
+        if (e.getKeyCode() == 83) {
+            System.out.println("pressed 'S' ");
+            Magikarp.dy = 5;
+        }
+        if (e.getKeyCode() == 68) {
+            System.out.println("pressed 'D' ");
+            Magikarp.dx = Math.abs(Magikarp.dx);
+            Magikarp.dx = 5;
+        }
     }
 
     @Override
@@ -222,6 +251,22 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         if (e.getKeyCode() == 37) {
             System.out.println("not pressed down arrow");
             Alakazam.dx = 0;
+        }
+        if (e.getKeyCode() == 87) {
+            System.out.println("not pressed up W");
+            Magikarp.dy = 0;
+        }
+        if (e.getKeyCode() == 65) {
+            System.out.println("not pressed down A");
+            Magikarp.dx = 0;
+        }
+        if (e.getKeyCode() == 83) {
+            System.out.println("not pressed up S");
+            Magikarp.dy = 0;
+        }
+        if (e.getKeyCode() == 68) {
+            System.out.println("not pressed down D");
+            Magikarp.dx = 0;
         }
 
     }
