@@ -29,8 +29,8 @@ public class Alakazam {
         ypos = pYpos;
         dx =5;
         dy =5;
-        width = 2000;
-        height = 60;
+        width = 150;
+        height = 150;
         isAlive = true;
         hitbox = new Rectangle(xpos, ypos, width, height);
 
