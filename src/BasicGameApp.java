@@ -175,8 +175,9 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         g.drawImage(BackgroundPic, 0, 0, WIDTH, HEIGHT, null);
         //g.drawImage(AlakazamPic, Alakazam.xpos, Alakazam.ypos, Alakazam.width, Alakazam.height, null);
         g.drawImage(AlakazamPic, Alakazam.xpos, Alakazam.ypos, Alakazam.width, Alakazam.height, null);
-
         g.drawImage(MagikarpPic, Magikarp.xpos, Magikarp.ypos, Magikarp.width, Magikarp.height, null);
+       /*/ g.drawRect(Alakazam.hitbox.x, Alakazam.hitbox.y, Alakazam.hitbox.width, Alakazam.hitbox.height);
+        g.drawRect(Magikarp.hitbox.x, Magikarp.hitbox.y, Magikarp.hitbox.width, Magikarp.hitbox.height);/*/
 
 		g.dispose();
 
@@ -192,46 +193,53 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     public void keyPressed(KeyEvent e) {
         System.out.println("Key typed" + e.getKeyCode());
         //up arrow 38
-        if (e.getKeyCode() == 38) {
+        if (e.getKeyCode() == 38) {//makes Alakazam go up
             System.out.println("pressed 'up' arrow");
             Alakazam.dy = -Math.abs(Alakazam.dy);
             Alakazam.dy = -5;
         }
-        if (e.getKeyCode() == 39) {
+        if (e.getKeyCode() == 39) {//makes Alakazam go to the right
             System.out.println("pressed 'right' arrow");
             //Alakazam.dx = Math.abs(Alakazam.dx);
             Alakazam.dx = 5;
 
         }
-        if (e.getKeyCode() == 37) {
+        if (e.getKeyCode() == 37) {//makes Alakazam go to the left
             System.out.println("pressed 'left' arrow");
             Alakazam.dx = -5;
         }
-        if (e.getKeyCode() == 40) {
+        if (e.getKeyCode() == 40) {//makes Alakazam go down
             System.out.println("pressed 'down' arrow");
             Alakazam.dy = Math.abs(Alakazam.dy);
             Alakazam.dy = 5;
         }
-        if (e.getKeyCode() == 87) {
+        if (e.getKeyCode() == 87) {//makes Magikarp go up
             System.out.println("pressed 'W'");
             Magikarp.dy = -Math.abs(Magikarp.dy);
             Magikarp.dy = -5;
         }
-        if (e.getKeyCode() == 65) {
+        if (e.getKeyCode() == 65) {//makes Magikarp go to the left
             System.out.println("pressed 'A' ");
             //Alakazam.dx = Math.abs(Alakazam.dx);
             Magikarp.dx = -5;
 
         }
-        if (e.getKeyCode() == 83) {
+        if (e.getKeyCode() == 83) {//makes Magikarp go down
             System.out.println("pressed 'S' ");
             Magikarp.dy = 5;
         }
-        if (e.getKeyCode() == 68) {
+        if (e.getKeyCode() == 68) {//makes Magikarp go to the right
             System.out.println("pressed 'D' ");
             Magikarp.dx = Math.abs(Magikarp.dx);
             Magikarp.dx = 5;
         }
+        if (e.getKeyCode() == 46) {//Alakazam fighting moves
+            System.out.println("pressed '.' ");
+        }
+        if (e.getKeyCode() == 44) {//Alakazam fighting moves
+            System.out.println("pressed ',' ");
+        }
+
     }
 
     @Override
