@@ -46,11 +46,14 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     public Image BackgroundPic;
     public Image AlakazamPic;
     public Image MagikarpPic;
+    public Image AlakazamPowerPic;
+
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
 
     private Alakazam Alakazam;
     private Magikarp Magikarp;
+    private AlakazamPower AlakazamPower;
 
 
    // Main method definition
@@ -75,10 +78,13 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         BackgroundPic = Toolkit.getDefaultToolkit().getImage("Background.png");
         AlakazamPic = Toolkit.getDefaultToolkit().getImage("Alakazam.png");
         MagikarpPic = Toolkit.getDefaultToolkit().getImage("Magikarp.png");
+        AlakazamPowerPic = Toolkit.getDefaultToolkit().getImage("PurpleFire.png");
 
 
         Alakazam = new Alakazam(3,9);
         Magikarp = new Magikarp(300, 500);
+        AlakazamPower = new AlakazamPower(3,9);
+
 
 	}// BasicGameApp()
 
@@ -176,6 +182,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         //g.drawImage(AlakazamPic, Alakazam.xpos, Alakazam.ypos, Alakazam.width, Alakazam.height, null);
         g.drawImage(AlakazamPic, Alakazam.xpos, Alakazam.ypos, Alakazam.width, Alakazam.height, null);
         g.drawImage(MagikarpPic, Magikarp.xpos, Magikarp.ypos, Magikarp.width, Magikarp.height, null);
+        g.drawImage(AlakazamPowerPic, AlakazamPower.xpos, AlakazamPower.ypos, AlakazamPower.width, AlakazamPower.height, null);
        /*/ g.drawRect(Alakazam.hitbox.x, Alakazam.hitbox.y, Alakazam.hitbox.width, Alakazam.hitbox.height);
         g.drawRect(Magikarp.hitbox.x, Magikarp.hitbox.y, Magikarp.hitbox.width, Magikarp.hitbox.height);/*/
 
@@ -235,9 +242,18 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         }
         if (e.getKeyCode() == 46) {//Alakazam fighting moves
             System.out.println("pressed '.' ");
+            AlakazamPower.isAlive = true;
+
         }
         if (e.getKeyCode() == 44) {//Alakazam fighting moves
             System.out.println("pressed ',' ");
+        }
+        if (e.getKeyCode() == 70) {//Magikarp fighting moves
+            System.out.println("pressed 'F' ");
+
+        }
+        if (e.getKeyCode() == 71) {//Magikarp fighting moves
+            System.out.println("pressed 'G' ");
         }
 
     }
@@ -275,6 +291,11 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         if (e.getKeyCode() == 68) {
             System.out.println("not pressed down D");
             Magikarp.dx = 0;
+        }
+        if (e.getKeyCode() == 46) {//Alakazam fighting moves
+            System.out.println("pressed '.' ");
+            AlakazamPower.isAlive = false;
+
         }
 
     }
