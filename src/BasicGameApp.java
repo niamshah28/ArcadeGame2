@@ -47,6 +47,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     public Image AlakazamPic;
     public Image MagikarpPic;
     public Image AlakazamPowerPic;
+    public Image StevenStonePic;
 
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
@@ -54,6 +55,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     private Alakazam Alakazam;
     private Magikarp Magikarp;
     private AlakazamPower AlakazamPower;
+    private StevenStone StevenStone;
 
 
    // Main method definition
@@ -84,6 +86,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         Alakazam = new Alakazam(3,9);
         Magikarp = new Magikarp(300, 500);
         AlakazamPower = new AlakazamPower(3,9);
+        StevenStone = new StevenStone(76,9);
 
 
 	}// BasicGameApp()
@@ -247,13 +250,16 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         }
         if (e.getKeyCode() == 44) {//Alakazam fighting moves
             System.out.println("pressed ',' ");
+            AlakazamPower.isAlive = true;
         }
         if (e.getKeyCode() == 70) {//Magikarp fighting moves
             System.out.println("pressed 'F' ");
+            AlakazamPower.isAlive = true;
 
         }
         if (e.getKeyCode() == 71) {//Magikarp fighting moves
             System.out.println("pressed 'G' ");
+            AlakazamPower.isAlive = true;
         }
 
     }
@@ -297,6 +303,21 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             AlakazamPower.isAlive = false;
 
         }
+        if (e.getKeyCode() == 44) {//Alakazam fighting moves
+            System.out.println("pressed '.' ");
+            AlakazamPower.isAlive = false;
+
+        }
+        if (e.getKeyCode() == 70) {//Alakazam fighting moves
+            System.out.println("pressed '.' ");
+            AlakazamPower.isAlive = false;
+
+        }
+        if (e.getKeyCode() == 71) {//Alakazam fighting moves
+            System.out.println("pressed '.' ");
+            AlakazamPower.isAlive = false;
+
+        }
 
     }
 
@@ -307,6 +328,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        System.out.println(e.getX()+e.getY());
 
     }
 
