@@ -18,7 +18,7 @@ public class StevenStone {
         dx =5;
         dy =5;
         width = 150;
-        height = 150;
+        height = 230;
         isAlive = true;
         hitbox = new Rectangle(xpos, ypos, width, height);
 

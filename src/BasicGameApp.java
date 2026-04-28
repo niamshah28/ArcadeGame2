@@ -47,7 +47,9 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     public Image AlakazamPic;
     public Image MagikarpPic;
     public Image AlakazamPowerPic;
+    public Image MagikarpPowerPic;
     public Image StevenStonePic;
+    public Image PokeballPic;
 
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
@@ -55,6 +57,8 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     private Alakazam Alakazam;
     private Magikarp Magikarp;
     private AlakazamPower AlakazamPower;
+    private MagikarpPower MagikarpPower;
+    private Pokeball Pokeball;
     private StevenStone StevenStone;
 
 
@@ -80,12 +84,18 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         BackgroundPic = Toolkit.getDefaultToolkit().getImage("Background.png");
         AlakazamPic = Toolkit.getDefaultToolkit().getImage("Alakazam.png");
         MagikarpPic = Toolkit.getDefaultToolkit().getImage("Magikarp.png");
+        StevenStonePic = Toolkit.getDefaultToolkit().getImage("StevenStone.png");
         AlakazamPowerPic = Toolkit.getDefaultToolkit().getImage("PurpleFire.png");
+        MagikarpPowerPic = Toolkit.getDefaultToolkit().getImage("Water.png");
+        PokeballPic = Toolkit.getDefaultToolkit().getImage("Pokeball.png");
+
 
 
         Alakazam = new Alakazam(3,9);
         Magikarp = new Magikarp(300, 500);
         AlakazamPower = new AlakazamPower(3,9);
+        MagikarpPower = new MagikarpPower(9,9);
+        Pokeball = new Pokeball(56,78);
         StevenStone = new StevenStone(76,9);
 
 
@@ -186,6 +196,9 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         g.drawImage(AlakazamPic, Alakazam.xpos, Alakazam.ypos, Alakazam.width, Alakazam.height, null);
         g.drawImage(MagikarpPic, Magikarp.xpos, Magikarp.ypos, Magikarp.width, Magikarp.height, null);
         g.drawImage(AlakazamPowerPic, AlakazamPower.xpos, AlakazamPower.ypos, AlakazamPower.width, AlakazamPower.height, null);
+        g.drawImage(MagikarpPowerPic, MagikarpPower.xpos, MagikarpPower.ypos, MagikarpPower.width, MagikarpPower.height, null);
+        g.drawImage(PokeballPic, Pokeball.xpos, Pokeball.ypos, Pokeball.width, Pokeball.height, null);
+        g.drawImage(StevenStonePic, StevenStone.xpos, StevenStone.ypos, StevenStone.width, StevenStone.height, null);
        /*/ g.drawRect(Alakazam.hitbox.x, Alakazam.hitbox.y, Alakazam.hitbox.width, Alakazam.hitbox.height);
         g.drawRect(Magikarp.hitbox.x, Magikarp.hitbox.y, Magikarp.hitbox.width, Magikarp.hitbox.height);/*/
 
@@ -247,6 +260,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             System.out.println("pressed '.' ");
             AlakazamPower.isAlive = true;
 
+
         }
         if (e.getKeyCode() == 44) {//Alakazam fighting moves
             System.out.println("pressed ',' ");
@@ -254,12 +268,12 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         }
         if (e.getKeyCode() == 70) {//Magikarp fighting moves
             System.out.println("pressed 'F' ");
-            AlakazamPower.isAlive = true;
+            MagikarpPower.isAlive = true;
 
         }
         if (e.getKeyCode() == 71) {//Magikarp fighting moves
             System.out.println("pressed 'G' ");
-            AlakazamPower.isAlive = true;
+            MagikarpPower.isAlive = true;
         }
 
     }
@@ -302,6 +316,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             System.out.println("pressed '.' ");
             AlakazamPower.isAlive = false;
 
+
         }
         if (e.getKeyCode() == 44) {//Alakazam fighting moves
             System.out.println("pressed '.' ");
@@ -310,12 +325,12 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         }
         if (e.getKeyCode() == 70) {//Alakazam fighting moves
             System.out.println("pressed '.' ");
-            AlakazamPower.isAlive = false;
+            MagikarpPower.isAlive = false;
 
         }
         if (e.getKeyCode() == 71) {//Alakazam fighting moves
             System.out.println("pressed '.' ");
-            AlakazamPower.isAlive = false;
+            MagikarpPower.isAlive = false;
 
         }
 

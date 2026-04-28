@@ -27,10 +27,10 @@ public class Alakazam {
     public Alakazam(int pXpos, int pYpos) {
         xpos = pXpos;
         ypos = pYpos;
-        dx =5;
-        dy =5;
-        width = 150;
-        height = 150;
+        dx =3;
+        dy =3;
+        width = 130;
+        height = 130;
         isAlive = true;
         hitbox = new Rectangle(xpos, ypos, width, height);
 
