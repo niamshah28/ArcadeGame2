@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class MagikarpPower {
+public class Healball {
     public String name;                //holds the name of the hero
     public int xpos;                //the x position
     public int ypos;                //the y position
@@ -11,7 +11,7 @@ public class MagikarpPower {
     public boolean isAlive;//a boolean to denote if the hero is alive or dead.
     public Rectangle hitbox;
 
-    public MagikarpPower(int pXpos, int pYpos) {
+    public Healball(int pXpos, int pYpos) {
         xpos = pXpos;
         ypos = pYpos;
         dx =5;
@@ -21,6 +21,28 @@ public class MagikarpPower {
         isAlive = true;
         hitbox = new Rectangle(xpos, ypos, width, height);
 
-    } // constructor
 
+    } // constructor
+    public void move() {
+        if(xpos >= 1000-width){ //Right wall
+            dx = -dx;
+        }
+
+        if(xpos < 0){ // Left wall
+            dx = -dx;
+        }
+
+        if(ypos < 0){ // Top wall
+            dy=-dy;
+        }
+        if (ypos >= 700-height ){ // Bottom wall
+            dy = -dy;
+        }
+
+
+        xpos = xpos + dx;
+        ypos = ypos + dy;
+        hitbox = new Rectangle(xpos, ypos, width, height);
+
+    }
 }
