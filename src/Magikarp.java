@@ -15,7 +15,6 @@ public class Magikarp {
     public Rectangle hitbox;
 
 
-
     // METHOD DEFINITION SECTION
 
     // Constructor Definition
@@ -27,8 +26,8 @@ public class Magikarp {
     public Magikarp(int pXpos, int pYpos) {
         xpos = pXpos;
         ypos = pYpos;
-        dx =5;
-        dy =5;
+        dx = 0;
+        dy = 0;
         width = 150;
         height = 150;
         isAlive = true;
@@ -38,25 +37,14 @@ public class Magikarp {
 
     //The move method.  Everytime this is run (or "called") the hero's x position and y position change by dx and dy
     public void move() {
-        if(xpos >= 1000-width){ //Right wall
-            dx = -dx;
-        }
+        xpos += dx;
+        ypos += dy;
 
-        if(xpos < 0){ // Left wall
-            dx = -dx;
-        }
+        if (xpos < 0) xpos = 0;
+        if (xpos > 1000 - width) xpos = 1000 - width;
+        if (ypos < 0) ypos = 0;
+        if (ypos > 700 - height) ypos = 700 - height;
 
-        if(ypos < 0){ // Top wall
-            dy=-dy;
-        }
-        if (ypos >= 700-height ){ // Bottom wall
-            dy = -dy;
-        }
-
-
-        xpos = xpos + dx;
-        ypos = ypos + dy;
         hitbox = new Rectangle(xpos, ypos, width, height);
-
     }
 }

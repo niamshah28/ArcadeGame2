@@ -1,25 +1,39 @@
 import java.awt.*;
 
 public class Pokeball {
-    public String name;                //holds the name of the hero
-    public int xpos;                //the x position
-    public int ypos;                //the y position
-    public int dx;                    //the speed of the hero in the x direction
-    public int dy;                    //the speed of the hero in the y direction
-    public int width;
-    public int height;
-    public boolean isAlive;//a boolean to denote if the hero is alive or dead.
+    public int xpos, ypos, dx, dy, width, height;
+    public boolean isAlive;
     public Rectangle hitbox;
 
-    public Pokeball(int pXpos, int pYpos) {
-        xpos = pXpos;
-        ypos = pYpos;
-        dx =5;
-        dy =5;
-        width = 150;
-        height = 150;
-        isAlive = true;
+    public Pokeball(int x, int y) {
+        xpos = x;
+        ypos = y;
+        dx = 0;
+        dy = 0;
+        width = 25;
+        height = 25;
+        isAlive = false; // only appears when shot
         hitbox = new Rectangle(xpos, ypos, width, height);
+    }
 
-    } // constructor
+    public void shoot(int startX, int startY, int speedX, int speedY) {
+        xpos = startX;
+        ypos = startY;
+        dx = speedX * 5;
+        dy = speedY * 5;
+        isAlive = true;
+    }
+
+    public void move() {
+        if (!isAlive) return;
+
+        xpos += dx;
+        ypos += dy;
+
+        if (xpos < 0 || xpos > 1000 || ypos < 0 || ypos > 700) {
+            isAlive = false;
+        }
+
+        hitbox = new Rectangle(xpos, ypos, width, height);
+    }
 }

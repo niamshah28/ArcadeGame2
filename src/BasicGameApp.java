@@ -31,8 +31,45 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
    //Variable Definition Section
    //Declare the variables used in the program 
    //You can set their initial values too
-   
-   //Sets the width and height of the program window
+
+
+    /*Pokemon Game Play Summary
+
+
+The game has the following characters:
+Main Player - Magikarp (Turns into Gyrados upon victory)
+Villains - Alakazam, Blaziken, Greninja, Mew
+Object - Pokeball, Health ball
+
+
+The main player and villains all start with 100 health points each. The health ball moves constantly from a
+random position and bounces off the walls. The health ball moves at 5 units at time. Main player moves 2 units
+with each press of the arrow keys (up, down, left, right) or by holding down the keys. Pressing two keys moves
+the main player diagonally. Main player can shoot a pokeball in the direction of travel at 10 units at a time
+by clicking the mouse. The pokeball continues through the screen until it either hits a villain or hits the
+edge of the screen. If the pokeball hits a villain, the villain loses health points (20 points each hit).
+If the main player hits the health ball, it gains 20 points of health.
+
+The villains move randomly on the screen, 2 units at a time. Each villain starts off by either bouncing off
+the edge of the screen or by wrapping to the opposed edge of the screen. The initial movement of the villains
+is selected at random. If a villain crashes into the main player, the main player loses health points
+(20 points each hit). Once the villain is either hit with a pokeball or hits the main player, its method
+of movement switches from bouncing to wrapping or vice versa.
+
+A player loses or dispappears when their health points are zero. Keep track of the enemy health points using
+an array. Display the health points for the main player and the villains with a health number below their
+character.
+
+The background is a pokemon image that is 1000 pixels wide by 800 pixels high. Each character is 100 pixels by
+100 pixels. The pokeball and the health objects are 25 pixels by 25 pixels.
+
+Once all the villains have been defeated, the main player turns from Magikarp to Gyrados and it bounces off
+the walls with a “you win” sign. If the main player is defeated, the main player disappears and the screen
+flashes “you lose”.
+*/
+
+
+    //Sets the width and height of the program window
 	final int WIDTH = 1000;
 	final int HEIGHT = 700;
 
@@ -42,24 +79,28 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
    public JPanel panel;
    
 	public BufferStrategy bufferStrategy;
-	public Image astroPic;
     public Image BackgroundPic;
     public Image AlakazamPic;
+    public Image BlazikenPic;
+    public Image GreninjaPic;
+    public Image MewPic;
     public Image MagikarpPic;
-    public Image AlakazamPowerPic;
-    public Image MagikarpPowerPic;
-    public Image StevenStonePic;
     public Image PokeballPic;
+    public Image HealballPic;
+    int mainHealth = 100;
+    int[] enemyHealth = {100,100,100,100};
 
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
 
     private Alakazam Alakazam;
+    private Blaziken Blaziken;
+    private Greninja Greninja;
+    private Mew Mew;
     private Magikarp Magikarp;
-    private AlakazamPower AlakazamPower;
-    private MagikarpPower MagikarpPower;
     private Pokeball Pokeball;
-    private StevenStone StevenStone;
+    private Healball Healball;
+
 
 
    // Main method definition
@@ -79,24 +120,25 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
       setUpGraphics();
        
       //variable and objects
-      //create (construct) the objects needed for the game and load up 
-		astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png");//load the picture
-        BackgroundPic = Toolkit.getDefaultToolkit().getImage("Background.png");
-        AlakazamPic = Toolkit.getDefaultToolkit().getImage("Alakazam.png");
-        MagikarpPic = Toolkit.getDefaultToolkit().getImage("Magikarp.png");
-        StevenStonePic = Toolkit.getDefaultToolkit().getImage("StevenStone.png");
-        AlakazamPowerPic = Toolkit.getDefaultToolkit().getImage("PurpleFire.png");
-        MagikarpPowerPic = Toolkit.getDefaultToolkit().getImage("Water.png");
-        PokeballPic = Toolkit.getDefaultToolkit().getImage("Pokeball.png");
+      //create (construct) the objects needed for the game and load up
+        BackgroundPic = Toolkit.getDefaultToolkit().getImage("Background.png");//load the pictur
+        AlakazamPic = Toolkit.getDefaultToolkit().getImage("Alakazam.png");//load the pictur
+        BlazikenPic = Toolkit.getDefaultToolkit().getImage("Blaziken.png");//load the pictur
+        GreninjaPic = Toolkit.getDefaultToolkit().getImage("Greninja.png");//load the pictur
+        MewPic = Toolkit.getDefaultToolkit().getImage("mew.png");//load the pictur
+        MagikarpPic = Toolkit.getDefaultToolkit().getImage("Magikarp.png");//load the pictur
+        PokeballPic = Toolkit.getDefaultToolkit().getImage("Pokeball.png");//load the pictur
+        HealballPic = Toolkit.getDefaultToolkit().getImage("Healball.png");//load the pictur
 
 
-
-        Alakazam = new Alakazam(3,9);
+        Alakazam = new Alakazam(500,400);
+        Blaziken = new Blaziken(3,9);
+        Greninja = new Greninja(600,560);
+        Mew = new Mew(500,50);
         Magikarp = new Magikarp(300, 500);
-        AlakazamPower = new AlakazamPower(3,9);
-        MagikarpPower = new MagikarpPower(9,9);
         Pokeball = new Pokeball(56,78);
-        StevenStone = new StevenStone(76,9);
+        Healball = new Healball(80,357);
+
 
 
 	}// BasicGameApp()
@@ -126,16 +168,49 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
       //calls the move( ) code in the objects
         Alakazam.move();
         Magikarp.move();
-       // crashing();
+        Blaziken.move();
+        Greninja.move();
+        Mew.move();
+        Pokeball.move();
+        Healball.move();
+
+        crashing();
 
 	}
     public void crashing(){
-        if(Alakazam.hitbox.intersects(Magikarp.hitbox)){
-            Alakazam.dx = -Alakazam.dx;
-            Magikarp.dx = -Magikarp.dx;
-            Alakazam.dy = -Alakazam.dy;
-            Magikarp.dy = -Magikarp.dy;
-    }
+        // Magikarp touches healball
+        if (Magikarp.hitbox.intersects(Healball.hitbox)) {
+            mainHealth += 20;
+            Healball.xpos = (int)(Math.random()*900);
+            Healball.ypos = (int)(Math.random()*600);
+        }
+
+        // Pokeball hits Alakazam
+        if (Pokeball.isAlive && Pokeball.hitbox.intersects(Alakazam.hitbox)) {
+            enemyHealth[0] -= 20;
+            Pokeball.isAlive = false;
+        }
+
+        if (Pokeball.isAlive && Pokeball.hitbox.intersects(Blaziken.hitbox)) {
+            enemyHealth[1] -= 20;
+            Pokeball.isAlive = false;
+        }
+
+        if (Pokeball.isAlive && Pokeball.hitbox.intersects(Greninja.hitbox)) {
+            enemyHealth[2] -= 20;
+            Pokeball.isAlive = false;
+        }
+
+        if (Pokeball.isAlive && Pokeball.hitbox.intersects(Mew.hitbox)) {
+            enemyHealth[3] -= 20;
+            Pokeball.isAlive = false;
+        }
+
+        // enemies hit player
+        if (Magikarp.hitbox.intersects(Alakazam.hitbox)) {
+            mainHealth -= 20;
+        }
+
     }
 
 
@@ -189,16 +264,41 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 	private void render() {
 		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
 		g.clearRect(0, 0, WIDTH, HEIGHT);
+        g.setColor(Color.WHITE);
+        g.drawString("" + mainHealth, Magikarp.xpos + 40, Magikarp.ypos + 170);
+        g.drawString("" + enemyHealth[0], Alakazam.xpos + 40, Alakazam.ypos + 150);
+        g.drawString("" + enemyHealth[1], Blaziken.xpos + 40, Blaziken.ypos + 150);
+        g.drawString("" + enemyHealth[2], Greninja.xpos + 40, Greninja.ypos + 150);
+        g.drawString("" + enemyHealth[3], Mew.xpos + 40, Mew.ypos + 150);
+
+        if(enemyHealth[0] > 0){
+            g.drawImage(AlakazamPic, Alakazam.xpos, Alakazam.ypos,
+                    Alakazam.width, Alakazam.height, null);
+        }
+        if(enemyHealth[0] <=0 && enemyHealth[1] <=0 && enemyHealth[2] <=0 && enemyHealth[3] <=0) {
+            g.setColor(Color.YELLOW);
+            g.setFont(new Font("Arial", Font.BOLD, 60));
+            g.drawString("YOU WIN!", 300, 300);
+
+            MagikarpPic = Toolkit.getDefaultToolkit().getImage("Gyrados.png");
+        }
+        if(mainHealth <= 0) {
+            g.setColor(Color.RED);
+            g.setFont(new Font("Arial", Font.BOLD, 60));
+            g.drawString("YOU LOSE", 300, 300);
+        }
 
       //draw the image of the astronaut
         g.drawImage(BackgroundPic, 0, 0, WIDTH, HEIGHT, null);
         //g.drawImage(AlakazamPic, Alakazam.xpos, Alakazam.ypos, Alakazam.width, Alakazam.height, null);
         g.drawImage(AlakazamPic, Alakazam.xpos, Alakazam.ypos, Alakazam.width, Alakazam.height, null);
+        g.drawImage(BlazikenPic, Blaziken.xpos, Blaziken.ypos, Blaziken.width, Blaziken.height, null);
+        g.drawImage(GreninjaPic, Greninja.xpos, Greninja.ypos, Greninja.width, Greninja.height, null);
+        g.drawImage(MewPic, Mew.xpos, Mew.ypos, Mew.width, Mew.height, null);
         g.drawImage(MagikarpPic, Magikarp.xpos, Magikarp.ypos, Magikarp.width, Magikarp.height, null);
-        g.drawImage(AlakazamPowerPic, AlakazamPower.xpos, AlakazamPower.ypos, AlakazamPower.width, AlakazamPower.height, null);
-        g.drawImage(MagikarpPowerPic, MagikarpPower.xpos, MagikarpPower.ypos, MagikarpPower.width, MagikarpPower.height, null);
         g.drawImage(PokeballPic, Pokeball.xpos, Pokeball.ypos, Pokeball.width, Pokeball.height, null);
-        g.drawImage(StevenStonePic, StevenStone.xpos, StevenStone.ypos, StevenStone.width, StevenStone.height, null);
+        g.drawImage(HealballPic, Healball.xpos, Healball.ypos, Healball.width, Healball.height, null);
+
        /*/ g.drawRect(Alakazam.hitbox.x, Alakazam.hitbox.y, Alakazam.hitbox.width, Alakazam.hitbox.height);
         g.drawRect(Magikarp.hitbox.x, Magikarp.hitbox.y, Magikarp.hitbox.width, Magikarp.hitbox.height);/*/
 
@@ -215,123 +315,47 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     @Override
     public void keyPressed(KeyEvent e) {
         System.out.println("Key typed" + e.getKeyCode());
-        //up arrow 38
-        if (e.getKeyCode() == 38) {//makes Alakazam go up
-            System.out.println("pressed 'up' arrow");
-            Alakazam.dy = -Math.abs(Alakazam.dy);
-            Alakazam.dy = -5;
+        if (e.getKeyCode() == 38) {//makes Magikarp go up
+            System.out.println("pressed 'up'");
+           // Magikarp.dy = -Math.abs(Magikarp.dy);
+            Magikarp.dy = -2;
         }
-        if (e.getKeyCode() == 39) {//makes Alakazam go to the right
-            System.out.println("pressed 'right' arrow");
+        if (e.getKeyCode() == 39) {//makes Magikarp go to the left
+            System.out.println("pressed 'right' ");
             //Alakazam.dx = Math.abs(Alakazam.dx);
-            Alakazam.dx = 5;
+            Magikarp.dx = 2;
 
         }
-        if (e.getKeyCode() == 37) {//makes Alakazam go to the left
-            System.out.println("pressed 'left' arrow");
-            Alakazam.dx = -5;
+        if (e.getKeyCode() == 37) {//makes Magikarp go down
+            System.out.println("pressed 'left' ");
+            Magikarp.dx = -2;
         }
-        if (e.getKeyCode() == 40) {//makes Alakazam go down
-            System.out.println("pressed 'down' arrow");
-            Alakazam.dy = Math.abs(Alakazam.dy);
-            Alakazam.dy = 5;
+        if (e.getKeyCode() == 40) {//makes Magikarp go to the right
+            System.out.println("pressed 'down' ");
+            //Magikarp.dx = Math.abs(Magikarp.dx);
+            Magikarp.dy = 2;
         }
-        if (e.getKeyCode() == 87) {//makes Magikarp go up
-            System.out.println("pressed 'W'");
-            Magikarp.dy = -Math.abs(Magikarp.dy);
-            Magikarp.dy = -5;
-        }
-        if (e.getKeyCode() == 65) {//makes Magikarp go to the left
-            System.out.println("pressed 'A' ");
-            //Alakazam.dx = Math.abs(Alakazam.dx);
-            Magikarp.dx = -5;
 
-        }
-        if (e.getKeyCode() == 83) {//makes Magikarp go down
-            System.out.println("pressed 'S' ");
-            Magikarp.dy = 5;
-        }
-        if (e.getKeyCode() == 68) {//makes Magikarp go to the right
-            System.out.println("pressed 'D' ");
-            Magikarp.dx = Math.abs(Magikarp.dx);
-            Magikarp.dx = 5;
-        }
-        if (e.getKeyCode() == 46) {//Alakazam fighting moves
-            System.out.println("pressed '.' ");
-            AlakazamPower.isAlive = true;
-
-
-        }
-        if (e.getKeyCode() == 44) {//Alakazam fighting moves
-            System.out.println("pressed ',' ");
-            AlakazamPower.isAlive = true;
-        }
-        if (e.getKeyCode() == 70) {//Magikarp fighting moves
-            System.out.println("pressed 'F' ");
-            MagikarpPower.isAlive = true;
-
-        }
-        if (e.getKeyCode() == 71) {//Magikarp fighting moves
-            System.out.println("pressed 'G' ");
-            MagikarpPower.isAlive = true;
-        }
 
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == 38) {
-            System.out.println("not pressed up arrow");
-            Alakazam.dy = 0;
+            System.out.println("not pressed up");
+            Magikarp.dy = 0;
         }
         if (e.getKeyCode() == 40) {
-            System.out.println("not pressed down arrow");
-            Alakazam.dy = 0;
+            System.out.println("not pressed down");
+            Magikarp.dy = 0;
         }
         if (e.getKeyCode() == 39) {
-            System.out.println("not pressed up arrow");
-            Alakazam.dx = 0;
+            System.out.println("not pressed right >");
+            Magikarp.dx = 0;
         }
         if (e.getKeyCode() == 37) {
-            System.out.println("not pressed down arrow");
-            Alakazam.dx = 0;
-        }
-        if (e.getKeyCode() == 87) {
-            System.out.println("not pressed up W");
-            Magikarp.dy = 0;
-        }
-        if (e.getKeyCode() == 65) {
-            System.out.println("not pressed down A");
+            System.out.println("not pressed left");
             Magikarp.dx = 0;
-        }
-        if (e.getKeyCode() == 83) {
-            System.out.println("not pressed up S");
-            Magikarp.dy = 0;
-        }
-        if (e.getKeyCode() == 68) {
-            System.out.println("not pressed down D");
-            Magikarp.dx = 0;
-        }
-        if (e.getKeyCode() == 46) {//Alakazam fighting moves
-            System.out.println("pressed '.' ");
-            AlakazamPower.isAlive = false;
-
-
-        }
-        if (e.getKeyCode() == 44) {//Alakazam fighting moves
-            System.out.println("pressed '.' ");
-            AlakazamPower.isAlive = false;
-
-        }
-        if (e.getKeyCode() == 70) {//Alakazam fighting moves
-            System.out.println("pressed '.' ");
-            MagikarpPower.isAlive = false;
-
-        }
-        if (e.getKeyCode() == 71) {//Alakazam fighting moves
-            System.out.println("pressed '.' ");
-            MagikarpPower.isAlive = false;
-
         }
 
     }
@@ -343,7 +367,12 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        System.out.println(e.getX()+e.getY());
+        Pokeball.shoot(
+                Magikarp.xpos + 50,
+                Magikarp.ypos + 50,
+                Magikarp.dx,
+                Magikarp.dy
+        );
 
     }
 
